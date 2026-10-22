@@ -33,6 +33,22 @@ gc formula show mol-shutdown-dance
 The recipe must read warrant metadata from the claimed bead via
 `$GC_BEAD_ID` and must not declare a required `warrant_id` var.
 
+## Mouse wheel
+
+The pack keeps tmux copy-mode scrollback on the main screen, including over
+mouse-reporting applications. Alternate-screen applications that request mouse
+reports, including Pi fullscreen mode, receive wheel events instead. Applications
+without mouse reporting use copy-mode scrollback even on the alternate screen.
+Existing copy-mode handles its own wheel events and exits at the bottom.
+A fullscreen application's transcript is not tmux's history buffer.
+
+The bindings are server-wide. Validate changes on a separate socket before
+applying the pack's session-live script to a shared server. Updating a running
+server's bindings does not require restarting it or its applications.
+The session-live writer reapplies this condition on subsequent session starts;
+new and recreated sessions inherit the current root table, not a frozen copy.
+Existing session-private tables are not changed by this script.
+
 ## Dog Pool
 
 Gastown owns `mol-shutdown-dance` and the dog agent that runs stuck-agent
